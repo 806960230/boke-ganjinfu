@@ -1,7 +1,7 @@
 
 import { TBaseArticle, TArticleQuery, TArticlesQuery } from '../utils/types';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/client';
-import { COMMIT_ARTICLE, GET_ARTICLE, GET_ARTICLES } from '../graphql/article';
+import { COMMIT_ARTICLE, DEL, GET_ARTICLE, GET_ARTICLES } from '../graphql/article';
 import { client } from '../utils/apollo';
 
 
@@ -69,12 +69,9 @@ export const useEditArticleInfo = (): [handleEdit: Function, loading: boolean] =
             },
         });
         if (res.data.updateArticleInfo.code === 200) {
-            // res.data.commitArticleInfo.message
-            // message.success(t('commitArticleInfoOk'));
             callback(true);
             return res.data
         }
-        // message.error(t('commitArticleInfoFail'));
     };
 
     return [handleEdit, loading];
@@ -108,4 +105,23 @@ export const useArticleInfo = (id: string) => {
     });
 
     return { data: data?.getArticle.data, loading, refetch };
+};
+
+
+// 删除文章
+export const useDeleteArticle = (): [handleEdit: Function, loading: boolean] => {
+    const [del, { loading }] = useMutation(DEL, { client });
+    const delHandler = async (id: string, callback: () => void) => {
+        const res = await del({
+            variables: {
+                id,
+            },
+        });
+        if (res.data.del.code === 200) {
+            callback();
+            return;
+        }
+    };
+
+    return [delHandler, loading];
 };

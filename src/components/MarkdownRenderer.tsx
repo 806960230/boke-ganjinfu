@@ -1,16 +1,16 @@
 // components/MarkdownRenderer.js
 
-import { remark } from 'remark';
-import html from 'remark-html';
+import { remark } from "remark";
+import html from "remark-html";
 
 interface MarkdownRendererProps {
-    content: string;
+  content: string;
 }
 
 const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
-    const processedContent = remark().use(html).processSync(content).toString();
+  const processedContent = remark().use(html).processSync(content).toString();
 
-    return <div dangerouslySetInnerHTML={{ __html: processedContent }} />;
-}
+  return <div dangerouslySetInnerHTML={{ __html: processedContent }} />;
+};
 
 export default MarkdownRenderer;

@@ -36,6 +36,15 @@ export const GET_ARTICLE = gql`
 `;
 
 
+export const DEL = gql`
+  mutation del( $id: String!) {
+    del(id:$id){
+      code
+      message
+    }
+  }
+`;
+
 export const GET_ARTICLES = gql`
   query getArticles($page: PageInput!) {
     getArticles(page: $page){

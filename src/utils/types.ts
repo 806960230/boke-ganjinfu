@@ -6,6 +6,8 @@ export interface IArticle {
     content: string;
 
     date: string;
+
+    action?: string;
 }
 
 export interface IPage {
